@@ -1,0 +1,5 @@
+hasAge(alice, 21).
+hasPCRTest(alice, test).
+hasDate(test, date).
+isNegative(test).
+daysSince(date, 1).

@@ -1,0 +1,21 @@
+vaccinatedCert(Person) :- hasVaccine1(Person), hasVaccine2(Person).
+vaccinatedCert(Person) :- hasVaccineJJ(Person).
+recoveringCert(Person) :- confirmedCase(Person, Infection),
+                          hasDate(Infection, Date),
+                          daysSince(Date, Days),
+                          Days >= 11, Days <= 180.
+testCert(Person) :- hasPCRTest(Person, Test),
+                    hasDate(Test, Date),
+                    isNegative(Test),
+                    daysSince(Date, Days),
+                    Days <= 2.
+testCert(Person) :- hasRATTest(Person, Test),
+                    hasDate(Test, Date),
+                    isNegative(Test),
+                    daysSince(Date, Days),
+                    Days <= 1.
+hasCert(Person) :- vaccinatedCert(Person).
+hasCert(Person) :- recoveringCert(Person).
+hasCert(Person) :- testCert(Person).
+ok(Person) :- hasCert(Person).
+ok(Person) :- hasAge(Person, Age), Age < 10.
